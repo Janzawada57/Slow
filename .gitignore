@@ -1,2 +1,35 @@
-# Google App Engine generated folder
-appengine-generated/
+# Funkcja do kodowania hasła
+def encode_password(password, shift):
+    encoded_password = ""
+    for char in password:
+        if char.isalpha():
+            shifted_char = chr(((ord(char) - ord('a' if char.islower() else 'A') + shift) % 26) + ord('a' if char.islower() else 'A'))
+            encoded_password += shifted_char
+        else:
+            encoded_password += char
+    return encoded_password
+
+# Funkcja do dekodowania hasła
+def decode_password(encoded_password, shift):
+    return encode_password(encoded_password, -shift)
+
+# Przykład użycia
+login = "example_user"
+password = "Secret123"
+shift_value = 3  # Przesunięcie w szyfrze Cezara
+
+# Kodowanie hasła i loginu
+encoded_login = encode_password(login, shift_value)
+encoded_password = encode_password(password, shift_value)
+
+print("Login:", login)
+print("Zakodowany Login:", encoded_login)
+print("Hasło:", password)
+print("Zakodowane Hasło:", encoded_password)
+
+# Dekodowanie hasła i loginu
+decoded_login = decode_password(encoded_login, shift_value)
+decoded_password = decode_password(encoded_password, shift_value)
+
+print("Odkodowany Login:", decoded_login)
+print("Odkodowane Hasło:", decoded_password)
